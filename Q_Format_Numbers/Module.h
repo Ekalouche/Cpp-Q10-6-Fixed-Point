@@ -21,11 +21,13 @@ public:
     float ToFloat();
 
     // Operator methods
-    Q10p6 operator+(const Q10p6& rhs);
-    Q10p6 operator-(const Q10p6& rhs);
-    Q10p6 operator*(const Q10p6& rhs);
-    Q10p6 operator/(const Q10p6& rhs);
+    Q10p6 operator+(Q10p6&);
+    Q10p6 operator-(Q10p6&);
+    Q10p6 operator*(Q10p6&);
+    Q10p6 operator/(Q10p6&);
 
-    bool operator==(const Q10p6& rhs);
+    bool operator==(Q10p6&);
 
 }; // end of class declaration
+
+#endif
