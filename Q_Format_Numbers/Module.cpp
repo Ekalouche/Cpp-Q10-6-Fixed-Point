@@ -41,33 +41,56 @@ float Q10p6::ToFloat()
 
 Q10p6 Q10p6::operator+(Q10p6& rhs)
 {
-    
+    Q10p6 RetVal;
 
+    // Add the stored values; both already use the same scale.
+    RetVal.Value = Value + rhs.Value;
 
-} 
-
-
-Q10p6 Q10p6::operator-(const Q10p6& rhs)
-{
-   
-
-} 
-
-Q10p6 Q10p6::operator*(const Q10p6& rhs)
-{
+    return RetVal;
 
 } 
 
 
-Q10p6 Q10p6::operator/(const Q10p6& rhs)
+Q10p6 Q10p6::operator-(Q10p6& rhs)
 {
-   
+    Q10p6 RetVal;
+
+    // Subtract the stored values; both use the same scale.
+    RetVal.Value = Value - rhs.Value;
+
+    return RetVal;
+} 
+
+Q10p6 Q10p6::operator*(Q10p6& rhs)
+{
+    Q10p6 RetVal;
+
+    // Multiply the stored values using a 32-bit intermediate.
+    int32_t Product = (int32_t)Value * rhs.Value;
+
+    // Divide by 64 to restore the Q10p6 scale.
+    RetVal.Value = Product / 64;
+
+    return RetVal;
+} 
+
+
+Q10p6 Q10p6::operator/(Q10p6& rhs)
+{
+    Q10p6 RetVal;
+
+    // Scale the numerator using a 32-bit intermediate.
+    int32_t Numerator = (int32_t)Value * 64;
+
+    // Divide to obtain the stored Q10p6 result.
+    RetVal.Value = Numerator / rhs.Value;
+
+    return RetVal;
 
 } 
-j
 
-bool Q10p6::operator==(const Q10p6& rhs)
+bool Q10p6::operator==(Q10p6& rhs)
 {
-    
-
+    // Compare the stored Q10p6 values.
+    return Value == rhs.Value;
 } 
